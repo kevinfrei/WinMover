@@ -54,8 +54,8 @@ namespace WinMover {
 
     public event EventHandler<GlobalKeyboardHookEventArgs>? KeyboardPressed;
 
-    public GlobalKeyboardHook(Keys[]? registeredKeys = null) {
-      RegisteredKeys = registeredKeys;
+    public GlobalKeyboardHook(IEnumerable<Keys>? registeredKeys = null) {
+      RegisteredKeys = registeredKeys != null ? new List<Keys>(registeredKeys) : null;
       windowsHookHandle = IntPtr.Zero;
       hookProc = LowLevelKeyboardProc; // we must keep alive _hookProc, because GC is not aware about SetWindowsHookEx behaviour.
 
@@ -86,7 +86,7 @@ namespace WinMover {
     private const int LlkhfAltdown = (KfAltdown >> 8);
     #endregion
 
-    public static Keys[]? RegisteredKeys = null;
+    public static List<Keys>? RegisteredKeys = null;
 
     // See https://learn.microsoft.com/en-us/windows/win32/winmsg/lowlevelkeyboardproc for details
     public IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam) {

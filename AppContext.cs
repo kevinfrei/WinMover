@@ -38,7 +38,7 @@ namespace WinMover {
       var kd = e.KeyboardData;
       var ks = e.KeyboardState;
       // MessageBox.Show($"{kd.Key}, {kd.VirtualCode}, {kd.HardwareScanCode}, {kd.TimeStamp}: {ks}", "Pressed");
-      e.Handled = keyboardHandler.tryToHandle(kd, ks);
+      e.Handled = keyboardHandler.TryToHandle(kd, ks);
     }
   }
 }
